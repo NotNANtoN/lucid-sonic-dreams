@@ -27,11 +27,21 @@ from .sample_effects import *
 
 def import_stylegan_torch():
     # Clone Official StyleGAN2-ADA Repository
-    if not os.path.exists('stylegan2'):
-        pygit2.clone_repository('https://github.com/NVlabs/stylegan2-ada-pytorch.git',
-                                'stylegan2')
+    #if not os.path.exists('stylegan2'):
+    #    pygit2.clone_repository('https://github.com/NVlabs/stylegan2-ada-pytorch.git',
+    #                            'stylegan2')
     # StyleGan2 imports
-    sys.path.append("stylegan2")
+    #sys.path.append("stylegan2")
+    #import legacy
+    #import dnnlib
+    
+    if not os.path.exists('stylegan3'):
+        pygit2.clone_repository('https://github.com/NVlabs/stylegan3.git',
+                                'stylegan3')
+
+
+    # StyleGan23imports
+    sys.path.append("stylegan3")
     import legacy
     import dnnlib
 
@@ -201,13 +211,14 @@ class LucidSonicDream:
         else:
             #import_stylegan_torch()
             # Clone Official StyleGAN2-ADA Repository
-            if not os.path.exists('stylegan2'):
-              #pygit2.clone_repository('https://github.com/NVlabs/stylegan2-ada.git',
-              #                        'stylegan2')
-                pygit2.clone_repository('https://github.com/NVlabs/stylegan2-ada-pytorch.git',
-                                      'stylegan2')
-            # StyleGan2 imports
-            sys.path.append("stylegan2")
+            if not os.path.exists('stylegan3'):
+                pygit2.clone_repository('https://github.com/NVlabs/stylegan3.git',
+                                        'stylegan3')
+
+
+            # StyleGan23imports
+            sys.path.append("stylegan3")
+
             #import legacy
             #import dnnlib
             self.dnnlib = import_module("dnnlib")
@@ -878,8 +889,27 @@ class LucidSonicDream:
                                               frame_duration, self.cluster_pitches, num_bands=num_bands)
   def generate_vectors(self):
     '''Generates noise and class vectors as inputs for each frame'''
+    
+    # generate vectors for no-lyrics case
+    if not self.use_clmr and not self.visualize_lyrics:       
+        img_per_s = 1 / 60
+        song_seconds = self.num_frames // self.fps
+        num_imgs = max(int(song_seconds * img_per_s), 1)
+        z = torch.from_numpy(np.random.RandomState(None).randn(num_imgs, self.model.z_dim)).to(self.device)
+        w_samples = self.model.mapping(z,  None, truncation_psi=self.truncation_psi).cpu().numpy()
+        if not self.use_all_layers:
+            w_samples = w_samples[:, 0, :]
+        if num_imgs == 1:
+            noise = [w_samples[0].copy() for _ in range(self.num_frames)]
+        else:
+            noise = full_frame_interpolation(w_samples, self.num_frames // num_imgs, self.num_frames)
+        noise = self.store_latents(noise, self.latent_folder, flush=1)
+
+    
+    
     # dataloader to iterate through latents
     ds = LatentsDataset(self.latent_folder)
+    assert len(ds) > 0
     dl = torch.utils.data.DataLoader(ds, batch_size=self.batch_size, pin_memory=True, shuffle=False, num_workers=2)
     
     if self.no_beat:
@@ -968,24 +998,8 @@ class LucidSonicDream:
     # Init random latents if not using clmr or lyrics to do so
     # If num_init_noise < 2, simply initialize the same 
     # noise vector for all frames 
-    print("Input shape: ", self.input_shape)        
-    if not self.use_clmr and not self.visualize_lyrics:           
-        shape = self.input_shape.tolist()
-        if num_init_noise < 2:
-            noise = [sample_func(shape)] * num_total_frames
-        # Otherwise, initialize num_init_noise different vectors, and generate
-        # linear interpolations between these vectors
-        else: 
-            # Initialize vectors
-            init_noise = [sample_func(shape) for i in range(num_init_noise)]
-            # Compute number of steps between each pair of vectors
-            steps = int(np.floor(num_total_frames) / len(init_noise) - 1)
-            print("Steps between vectors", steps)  
-            # Interpolate
-            noise = full_frame_interpolation(init_noise, 
-                                             steps,
-                                             num_total_frames)
-        noise = self.store_latents(noise, self.latent_folder, flush=1)
+    print("Input shape: ", self.input_shape)            
+      
 
     num_latents = self.input_shape.prod()
         
@@ -1007,35 +1021,44 @@ class LucidSonicDream:
         z_dim_mean = welford_alg.mean
         z_dim_std = welford_alg.std
         
+        print(z_dim_mean)
+        print(z_dim_std)
+        
+
+        print(z_dim_mean.min(), z_dim_mean.max(), z_dim_mean.mean(), z_dim_mean.std())
+        print(z_dim_std.min(), z_dim_std.max(), z_dim_std.mean(), z_dim_std.std())
+        quit()
     
     # Initialize running exponential averages
     pulse_noise = 0
     motion_noise = 0
     motion_noise_sum = 0
-    count = 0
     noise = []
     
     scaled_sigmoid = lambda x: 1 / (1 + np.exp(-x - z_dim_mean) * z_dim_std)
     self.motion_range = 5
-    
+        
     # UPDATE NOISE # 
-    for i, batch in enumerate(tqdm(dl)):
+    for batch_idx, batch in enumerate(tqdm(dl)):
         batch = batch.numpy()
-        for latent in batch:
+        for single_idx, latent in enumerate(batch):
+            i = batch_idx * self.batch_size + single_idx
             # Re-initialize randomness factors every 4 seconds
-            if count % round(fps * 4) == 0:
+            if i % round(fps * 4) == 0:
+                print("RANDOMIZE RAND FACTORS")
                 rand_factors = np.array([random.choice([1, 1 - self.motion_randomness]) for _ in range(num_latents)]).reshape(shape)
 
             # Generate incremental update vectors for Pulse and Motion
             spec_pulse = self.spec_norm_pulse[i]
             spec_mot = self.spec_norm_motion[i]
+            
             if self.use_all_layers:
                 spec_pulse = spec_pulse.reshape(self.input_shape[0], 1) 
                 spec_mot = spec_mot.reshape(18, 1)  # * scipy.special.softmax(z_dim_std, axis=-1)
             # Create update vectors for pulse and motion
             if self.use_old_beat:
-                pulse_noise_add = pulse_base * spec_pulse * z_dim_std
-                motion_noise_add = motion_base * spec_mot * motion_signs * rand_factors * z_dim_std
+                pulse_noise_add = pulse_base * spec_pulse # * z_dim_std
+                motion_noise_add = motion_base * spec_mot * motion_signs * rand_factors # * z_dim_std
             else:
                 pulse_noise_add = pulse_base * spec_pulse * z_dim_std
                 motion_noise_add = motion_base * spec_mot * motion_signs * rand_factors * z_dim_std
@@ -1047,9 +1070,11 @@ class LucidSonicDream:
                 
             # Smooth each update vector using a weighted average of
             # itself and the previous vector
-            pulse_noise = pulse_noise_add * PULSE_SMOOTH + pulse_noise * (1 - PULSE_SMOOTH)
-            motion_noise = motion_noise_add * MOTION_SMOOTH + motion_noise * (1 - MOTION_SMOOTH)
+            pulse_noise = pulse_noise * PULSE_SMOOTH + pulse_noise_add * (1 - PULSE_SMOOTH)
+            motion_noise = motion_noise * MOTION_SMOOTH + motion_noise_add * (1 - MOTION_SMOOTH)
 
+            print(spec_pulse, spec_mot)
+            
             # Update current noise vector by adding current Pulse vector and 
             # a cumulative sum of Motion vectors
             motion_noise_sum += motion_noise
@@ -1061,19 +1086,18 @@ class LucidSonicDream:
             
             # update motion directions
             if self.use_old_beat:
-                thresh_pos = z_dim_std * 2
-                thresh_neg = -1 * thresh_pos
+                thresh_pos = 2 - motion_signs
+                thresh_neg = -1 * thresh_pos + motion_signs
+                next_latent = latent
             else:
                 thresh_pos = latent + z_dim_std * self.motion_range
                 thresh_neg = latent + z_dim_std * self.motion_range
-            next_latent = latent + motion_noise_sum + pulse_noise
+                next_latent = latent + motion_noise_sum + pulse_noise
             # For each current value in noise vector, change direction if absolute 
             # value +/- motion_react is larger than the threshold
             motion_signs[next_latent < thresh_neg] = 1
             motion_signs[next_latent >= thresh_pos] = -1
-            
-            count += 1
-        
+                    
     #self.noise = noise 
     noise = self.store_latents(noise, self.beat_latent_folder, flush=1)
 
@@ -1146,6 +1170,7 @@ class LucidSonicDream:
 
     # create dataloader
     ds = LatentsDataset(self.beat_latent_folder)
+ 
     dl = torch.utils.data.DataLoader(ds, batch_size=self.batch_size, pin_memory=True, shuffle=False, num_workers=2)
     torch.backends.cudnn.benchmark = True
 
