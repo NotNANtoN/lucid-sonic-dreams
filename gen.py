@@ -5,7 +5,8 @@ import os
 from lucidsonicdreams.main import LucidSonicDream
 #from lucidsonicdreams import LucidSonicDream
 
-styles = {"janregnar": "../stylegan2-ada-pytorch/jan_regnart_640.pkl", 
+styles = {"strangegods": "../stylegan3/strangegods_1620.pkl",
+        "janregnar": "../stylegan2-ada-pytorch/jan_regnart_640.pkl", 
           "madziowa": "../stylegan2-ada-pytorch/madziowa_p_800.pkl",
           "microscope": "microscope images", 
           "imagenet": "imagenet", 
@@ -16,7 +17,7 @@ styles = {"janregnar": "../stylegan2-ada-pytorch/jan_regnart_640.pkl",
           "therealtheory": "../stylegan2-ada-pytorch/therealtheory_540.pkl",
           "floor_plans": "models/floor-plans_stylegan2.pkl"}
 
-songs = ["songs/henne_song.mp3", "songs/gnossi_1.mp3"]
+songs = ["songs/henne_song.mp3", "songs/gnossi_1.mp3", "songs/Einojuhani_RAUTAVAARA_Credo.mp3"]
 
 lyric_songs = ["Dancing Queen.mp3", "like a rolling Stone.mp3", "Shia LaBeouf.mp3", "Smells Like Teen Spirit.mp3", "Space Oddity.mp3", "This Is America.mp3", "Without Me.mp3", "(bowie) space oddity.mp3", "be_my_weasel.mp3"]
 lyrics = ["Dancing Queen.srt", "like a rolling Stone.srt", "Shia LaBeouf.srt", "Smells Like Teen Spirit.srt", "Space Oddity.srt", "This Is America.srt", "Without Me.srt", "(bowie) space oddity.srt", "space_oddity_bowie_custom_1.srt", "be_my_weasel.srt"]
@@ -65,7 +66,57 @@ hallus(None, lyric_songs[1], width=480, height=480, lyrics_path=lyrics[1], batch
 
 quit()
     
+    
+hallus(styles["strangegods"], songs[2], batch_size=4, duration=10, offset=5, use_all_layers=0, use_old_beat = 1, use_song_latent_std = 1, 
+                  pulse_percussive = True,
+                  pulse_harmonic = False,
+                  pulse_react = 0.3,
+                  motion_percussive = False,
+                  motion_harmonic = True,
+                  motion_react = 0.85)
+    
+quit()
+    
+hallus(styles["strangegods"], songs[2], batch_size=4, duration=None, use_all_layers=0, use_old_beat = 1, use_song_latent_std = 0, pulse_percussive = True,
+                  pulse_harmonic = False,
+                  pulse_react = 0.3,
+                  motion_percussive = False,
+                  motion_harmonic = True,
+                  motion_react = 0.85)
+
+quit()
+
+hallus(styles["strangegods"], songs[2], batch_size=4, duration=None, use_all_layers=0, use_old_beat = 1, use_song_latent_std = 0, pulse_percussive = True,
+                  pulse_harmonic = False,
+                  pulse_react = 0.25,
+                  motion_percussive = False,
+                  motion_harmonic = True,
+                  motion_react = 0.65)
+
+quit()
+
+hallus(styles["strangegods"], songs[2], batch_size=4, duration=30, use_all_layers=0, use_old_beat = 1, use_song_latent_std = 0, 
+                  pulse_percussive = 0,
+                  pulse_harmonic = 1,
+                  pulse_react = 0.2,
+                  motion_percussive = 1,
+                  motion_harmonic = 0,
+                  motion_react = 0.6)
+
+hallus(styles["strangegods"], songs[2], batch_size=4, duration=30, use_all_layers=0, use_old_beat = 1, use_song_latent_std = 0, 
+                  pulse_percussive = 0,
+                  pulse_harmonic = 1,
+                  pulse_react = 0.6,
+                  motion_percussive = 1,
+                  motion_harmonic = 0,
+                  motion_react = 0.2)
+
+
+quit()
+
+>>>>>>> 41cdefd70dda3286faf41c69395a77d91a6438e7
 # bowie#
+
 
 clip_opt_kwargs = {"batch_size": 32, "use_tv_loss": 1, "neg_text": 'incoherent, confusing, cropped, watermarks',
                   "decay_cutout": 0}
@@ -74,20 +125,20 @@ clip_opt_kwargs = {"batch_size": 32, "use_tv_loss": 1, "neg_text": 'incoherent, 
 
 #hallus(None, lyric_songs[2], width=1080, height=720, lyrics_path=lyrics[2], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=1.0, motion_react=0.00, lyrics_iterations=2000, reset_latents_after_phrase=1, model_type="vqgan", use_all_layers=0, no_beat=1, clip_opt_kwargs=clip_opt_kwargs)
 
-hallus(None, lyric_songs[2], width=1080, height=720, lyrics_path=lyrics[2], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=0.5, motion_react=0.00, lyrics_iterations=2000, reset_latents_after_phrase=1, model_type="vqgan", use_all_layers=0, no_beat=0, clip_opt_kwargs=clip_opt_kwargs)
+#hallus(None, lyric_songs[2], width=1080, height=720, lyrics_path=lyrics[2], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=0.5, motion_react=0.00, lyrics_iterations=2000, reset_latents_after_phrase=1, model_type="vqgan", use_all_layers=0, no_beat=0, clip_opt_kwargs=clip_opt_kwargs)
 
-hallus(None, lyric_songs[2], width=1080, height=720, lyrics_path=lyrics[2], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=0.5, motion_react=0.5, lyrics_iterations=2000, reset_latents_after_phrase=1, model_type="vqgan", use_all_layers=0, no_beat=0, clip_opt_kwargs=clip_opt_kwargs)
+#hallus(None, lyric_songs[2], width=1080, height=720, lyrics_path=lyrics[2], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=0.5, motion_react=0.5, lyrics_iterations=2000, reset_latents_after_phrase=1, model_type="vqgan", use_all_layers=0, no_beat=0, clip_opt_kwargs=clip_opt_kwargs)
 
 # no reset
 
-hallus(None, lyric_songs[2], width=1080, height=720, lyrics_path=lyrics[2], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=1.0, motion_react=0.00, lyrics_iterations=1500, reset_latents_after_phrase=0, model_type="vqgan", use_all_layers=0, no_beat=1, clip_opt_kwargs=clip_opt_kwargs)
+#hallus(None, lyric_songs[2], width=1080, height=720, lyrics_path=lyrics[2], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=1.0, motion_react=0.00, lyrics_iterations=1500, reset_latents_after_phrase=0, model_type="vqgan", use_all_layers=0, no_beat=1, clip_opt_kwargs=clip_opt_kwargs)
 
 clip_opt_kwargs = {"batch_size": 32}
 #hallus(None, lyric_songs[7], width=1080, height=720, lyrics_path=lyrics[8], batch_size=1, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=1.0, motion_react=0.00, lyrics_iterations=1000, reset_latents_after_phrase=1, model_type="vqgan", use_all_layers=0, no_beat=0, clip_opt_kwargs=clip_opt_kwargs)
-hallus(None, lyric_songs[7], width=1080, height=720, lyrics_path=lyrics[8], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=1.0, motion_react=0.00, lyrics_iterations=1000, reset_latents_after_phrase=1, model_type="vqgan", use_all_layers=0, no_beat=1, clip_opt_kwargs=clip_opt_kwargs)
+#hallus(None, lyric_songs[7], width=1080, height=720, lyrics_path=lyrics[8], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=1.0, motion_react=0.00, lyrics_iterations=1000, reset_latents_after_phrase=1, model_type="vqgan", use_all_layers=0, no_beat=1, clip_opt_kwargs=clip_opt_kwargs)
 #shia
 #hallus(None, lyric_songs[2], width=1080, height=720, lyrics_path=lyrics[2], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=1.0, motion_react=0.00, lyrics_iterations=1000, reset_latents_after_phrase=1, model_type="vqgan", use_all_layers=0, no_beat=0, clip_opt_kwargs=clip_opt_kwargs)
-hallus(None, lyric_songs[2], width=1080, height=720, lyrics_path=lyrics[2], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=1.0, motion_react=0.00, lyrics_iterations=1000, reset_latents_after_phrase=1, model_type="vqgan", use_all_layers=0, no_beat=1, clip_opt_kwargs=clip_opt_kwargs)
+#hallus(None, lyric_songs[2], width=1080, height=720, lyrics_path=lyrics[2], batch_size=4, visualize_lyrics=1, duration=None, lyrics_sigmoid_transition=1, lyrics_sigmoid_t=7, ampl_influences_speed=1, pulse_react=1.0, motion_react=0.00, lyrics_iterations=1000, reset_latents_after_phrase=1, model_type="vqgan", use_all_layers=0, no_beat=1, clip_opt_kwargs=clip_opt_kwargs)
 
 
 quit()
