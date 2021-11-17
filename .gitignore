@@ -9,7 +9,7 @@ clmr/
 
 models/*
 songs/*
-songs_with_subs/*
+songs_with_lyrics/*
 outputs/*
 build/*
 dist/*
