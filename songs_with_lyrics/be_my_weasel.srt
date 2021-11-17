@@ -1,0 +1,252 @@
+Intro
+00:00:00,000 --> 00:00:10,000
+Cool guy with sunglasses slapping a beat on a guitar
+
+Intro
+00:00:10,000 --> 00:00:17,000
+Groovy guitar setting in
+
+Intro
+00:00:21,000 --> 00:00:26,000
+Light-weight whistling mixes in with the other instruments
+
+Intro
+00:00:26,000 --> 00:00:38,000
+A guy with sunglasses whistles even more than before
+
+Intro
+00:00:38,000 --> 00:00:48,000
+A second, stronger guitar starts playing a funky tune
+
+Intro
+00:00:48,000 --> 00:00:58,000
+The bald Yannic Kilcher with sunglasses on
+
+1
+00:00:58,000 --> 00:00:58,000
+I'm curling in my sleeping bag
+
+2
+00:01:03,000 --> 00:01:03,000
+all dressed up in my shower cap
+
+3
+00:01:07,000 --> 00:01:07,000
+soon I'll be on the largest screen
+
+4
+00:01:12,000 --> 00:01:12,000
+with my head in a guillotine
+
+5
+00:01:15,000 --> 00:01:15,000
+My hair smells like an old dishrag
+
+6
+00:01:18,000 --> 00:01:18,000
+my face looks like a used doormat
+
+7
+00:01:21,000 --> 00:01:21,000
+my spine is like a horizontal bar
+
+8
+00:01:26,000 --> 00:01:26,000
+These are just some things you'll find in ImageNet
+
+9
+00:01:30,000 --> 00:01:30,000
+A thousand cuts of joy, but mostly things to pet
+
+10
+00:01:32,000 --> 00:01:32,000
+be my weasel
+
+11
+00:01:34,000 --> 00:01:34,000
+be my pig
+
+12
+00:01:36,000 --> 00:01:36,000
+be my badger
+
+13
+00:01:38,000 --> 00:01:38,000
+on an offshore rig
+
+14
+00:01:40,000 --> 00:01:40,000
+find a beagle
+
+15
+00:01:43,000 --> 00:01:43,000
+catch a slug
+
+16
+00:01:48,000 --> 00:01:48,000
+and bring them all to my whiskey jug
+
+17
+00:01:50,000 --> 00:01:50,000
+watch out for the king snake
+
+18
+00:01:51,000 --> 00:01:51,000
+the vine snake
+
+19
+00:01:52,000 --> 00:01:52,000
+the green snake
+
+20
+00:01:54,000 --> 00:01:54,000
+and don't forget the night snake
+
+21
+00:01:55,000 --> 00:01:55,000
+the sea snake
+
+22
+00:01:57,000 --> 00:01:57,000
+and the pug
+
+23
+00:01:59,000 --> 00:01:59,000
+find a beagle
+
+24
+00:02:01,000 --> 00:02:01,000
+catch a slug
+
+25
+00:02:05,000 --> 00:02:05,000
+and bring them all to my whiskey jug
+
+26
+00:02:12,000 --> 00:02:12,000
+And there I sit, in a rocking chair
+
+27
+00:02:17,000 --> 00:02:17,000
+looking for my purple hare
+
+28
+00:02:21,000 --> 00:02:21,000
+what's inside this wooden chest
+
+29
+00:02:26,000 --> 00:02:26,000
+maybe my bulletproof vest
+
+30
+00:02:29,000 --> 00:02:29,000
+I hear a border collie cry
+
+31
+00:02:32,000 --> 00:02:32,000
+A bernese mountain dog goes by
+
+32
+00:02:35,000 --> 00:02:35,000
+And all the while two hummingbirds stay near
+
+33
+00:02:40,000 --> 00:02:40,000
+These are just some things you'll find in ImageNet
+
+34
+00:02:44,000 --> 00:02:44,000
+A thousand cuts of joy, but mostly things to pet
+
+35
+00:02:47,000 --> 00:02:47,000
+be my weasel
+
+36
+00:02:49,000 --> 00:02:49,000
+be my pig
+
+37
+00:02:51,000 --> 00:02:51,000
+be my badger
+
+38
+00:02:53,000 --> 00:02:53,000
+on an offshore rig
+
+39
+00:02:55,000 --> 00:02:55,000
+find a beagle
+
+40
+00:02:58,000 --> 00:02:58,000
+catch a slug
+
+41
+00:03:01,000 --> 00:03:01,000
+and bring them all to my whiskey jug
+
+42
+00:03:04,000 --> 00:03:04,000
+watch out for the king snake
+
+43
+00:03:05,000 --> 00:03:05,000
+the vine snake
+
+44
+00:03:06,000 --> 00:03:06,000
+the green snake
+
+45
+00:03:08,000 --> 00:03:08,000
+and don't forget the night snake
+
+46
+00:03:09,000 --> 00:03:09,000
+the sea snake
+
+47
+00:03:10,000 --> 00:03:10,000
+and the pug
+
+48
+00:03:13,000 --> 00:03:13,000
+find a beagle
+
+49
+00:03:15,000 --> 00:03:15,000
+catch a slug
+
+50
+00:03:20,000 --> 00:03:20,000
+and bring them all to my whiskey jug
+
+51
+00:03:22,000 --> 00:03:22,000
+be my weasel
+
+52
+00:03:24,000 --> 00:03:24,000
+be my pig
+
+53
+00:03:26,000 --> 00:03:26,000
+be my badger
+
+54
+00:03:29,000 --> 00:03:29,000
+on an offshore rig
+
+55
+00:03:31,000 --> 00:03:31,000
+find a beagle
+
+56
+00:03:33,000 --> 00:03:33,000
+catch a slug
+
+57
+00:03:38,000 --> 00:03:38,000
+and bring them all to my whiskey jug
+

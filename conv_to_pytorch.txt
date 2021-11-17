@@ -1,0 +1,8 @@
+# path:
+cd ~/.local/lib/python3.8/site-packages/musicnn/MTT_musicnn
+
+# get to tensorflow version 1.15
+conda activate tf15
+
+# convert to pytorch
+mmconvert -sf tensorflow -in checkpoint -iw checkpoint --dstNodeName MMdnn_Output -df pytorch -om mst_pytorch.pth

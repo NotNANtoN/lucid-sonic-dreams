@@ -1,0 +1,232 @@
+﻿1
+00:00:01,165 --> 00:00:04,065
+("Smells Like Teen Spirit"
+- Nirvana)
+
+2
+00:00:25,365 --> 00:00:29,533
+♪ Load up on guns,
+bring your friends ♪
+
+3
+00:00:29,565 --> 00:00:33,632
+♪ It's fun to lose
+and to pretend ♪
+
+4
+00:00:33,665 --> 00:00:38,099
+♪ She's over-bored
+and self-assured ♪
+
+5
+00:00:38,133 --> 00:00:42,300
+♪ Oh no, I know a dirty word
+
+6
+00:00:42,332 --> 00:00:46,299
+♪ Hello, hello, hello, how low
+
+7
+00:00:46,332 --> 00:00:50,365
+♪ Hello, hello, hello, how low
+
+8
+00:00:50,399 --> 00:00:54,399
+♪ Hello, hello, hello, how low
+
+9
+00:00:54,432 --> 00:00:57,265
+♪ Hello, hello, hello
+
+10
+00:00:57,299 --> 00:01:01,232
+♪ With the lights out,
+it's less dangerous ♪
+
+11
+00:01:01,265 --> 00:01:05,299
+♪ Here we are now,
+entertain us ♪
+
+12
+00:01:05,332 --> 00:01:09,332
+♪ I feel stupid and contagious
+
+13
+00:01:09,365 --> 00:01:13,432
+♪ Here we are now,
+entertain us ♪
+
+14
+00:01:13,465 --> 00:01:17,465
+♪ A mulatto, an albino
+
+15
+00:01:17,500 --> 00:01:22,465
+♪ A mosquito, my libido, yeah
+
+16
+00:01:24,132 --> 00:01:25,132
+♪ Hey
+
+17
+00:01:28,332 --> 00:01:29,299
+♪ Yay
+
+18
+00:01:39,500 --> 00:01:43,566
+♪ I'm worse at what I do best
+
+19
+00:01:43,599 --> 00:01:47,699
+♪ And for this gift,
+I feel blessed ♪
+
+20
+00:01:47,733 --> 00:01:52,133
+♪ Our little group
+has always been ♪
+
+21
+00:01:52,165 --> 00:01:56,200
+♪ And always will
+until the end ♪
+
+22
+00:01:56,233 --> 00:02:00,233
+♪ Hello, hello, hello, how low
+
+23
+00:02:00,266 --> 00:02:04,332
+♪ Hello, hello, hello, how low
+
+24
+00:02:04,365 --> 00:02:08,400
+♪ Hello, hello, hello, how low
+
+25
+00:02:08,432 --> 00:02:11,265
+♪ Hello, hello, hello
+
+26
+00:02:11,300 --> 00:02:15,266
+♪ With the lights out,
+it's less dangerous ♪
+
+27
+00:02:15,300 --> 00:02:19,366
+♪ Here we are now,
+entertain us ♪
+
+28
+00:02:19,400 --> 00:02:23,400
+♪ I feel stupid and contagious
+
+29
+00:02:23,432 --> 00:02:27,465
+♪ Here we are now,
+entertain us ♪
+
+30
+00:02:27,500 --> 00:02:31,500
+♪ A mulatto, an albino
+
+31
+00:02:31,532 --> 00:02:36,500
+♪ A mosquito, my libido, yeah
+
+32
+00:02:37,733 --> 00:02:38,733
+♪ Hey
+
+33
+00:02:41,733 --> 00:02:42,633
+♪ Yay
+
+34
+00:02:44,532 --> 00:02:47,399
+(guitar solo)
+
+35
+00:03:09,432 --> 00:03:13,532
+♪ And I forget
+just why I taste ♪
+
+36
+00:03:13,566 --> 00:03:17,633
+♪ Oh yeah, I guess
+it makes me smile ♪
+
+37
+00:03:17,665 --> 00:03:21,699
+♪ I found it hard,
+it's hard to find ♪
+
+38
+00:03:21,733 --> 00:03:25,733
+♪ Oh well, whatever,
+never mind ♪
+
+39
+00:03:25,765 --> 00:03:30,199
+♪ Hello, hello, hello, how low
+
+40
+00:03:30,233 --> 00:03:34,233
+♪ Hello, hello, hello, how low
+
+41
+00:03:34,265 --> 00:03:38,265
+♪ Hello, hello, hello, how low
+
+42
+00:03:38,300 --> 00:03:40,766
+♪ Hello, hello, hello
+
+43
+00:03:41,000 --> 00:03:44,765
+♪ With the lights out,
+it's less dangerous ♪
+
+44
+00:03:45,000 --> 00:03:49,233
+♪ Here we are now,
+entertain us ♪
+
+45
+00:03:49,265 --> 00:03:53,265
+♪ I feel stupid and contagious
+
+46
+00:03:53,300 --> 00:03:57,233
+♪ Here we are now,
+entertain us ♪
+
+47
+00:03:57,265 --> 00:04:01,233
+♪ A mulatto, an albino
+
+48
+00:04:01,265 --> 00:04:05,199
+♪ A mosquito, my libido
+
+49
+00:04:05,233 --> 00:04:09,466
+♪ A denial, a denial
+
+50
+00:04:09,500 --> 00:04:13,500
+♪ A denial, a denial
+
+51
+00:04:13,532 --> 00:04:17,466
+♪ A denial, a denial
+
+52
+00:04:17,500 --> 00:04:21,500
+♪ A denial, a denial
+
+53
+00:04:21,533 --> 00:04:27,600
+♪ A denial
+
