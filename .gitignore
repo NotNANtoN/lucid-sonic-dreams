@@ -24,5 +24,6 @@ lucidsonicdreams.egg-info/*
 *.pt
 *.zip
 *.png
+*.srt
 gen.py
 
