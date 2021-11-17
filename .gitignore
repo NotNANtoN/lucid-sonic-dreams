@@ -7,13 +7,13 @@ stylegan2_tf/
 clmr_magnatagatune_mlp/
 clmr/
 
-models/*
-songs/*
-songs_with_lyrics/*
-outputs/*
-build/*
-dist/*
-dream_venv/*
+models/
+songs/
+songs_with_lyrics/
+outputs/
+build/
+dist/
+dream_venv/
 lucidsonicdreams.egg-info/*
 
 # files
