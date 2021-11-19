@@ -13,13 +13,13 @@ taming-transformers/
 taming/
 tmp/
 
-models/*
-songs/*
-songs_with_subs/*
-outputs/*
-build/*
-dist/*
-dream_venv/*
+models/
+songs/
+songs_with_lyrics/
+outputs/
+build/
+dist/
+dream_venv/
 lucidsonicdreams.egg-info/*
 
 # files
@@ -30,5 +30,6 @@ lucidsonicdreams.egg-info/*
 *.pt
 *.zip
 *.png
+*.srt
 gen.py
 

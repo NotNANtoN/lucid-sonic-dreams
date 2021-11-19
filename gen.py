@@ -114,7 +114,6 @@ hallus(styles["strangegods"], songs[2], batch_size=4, duration=30, use_all_layer
 
 quit()
 
->>>>>>> 41cdefd70dda3286faf41c69395a77d91a6438e7
 # bowie#
 
 
