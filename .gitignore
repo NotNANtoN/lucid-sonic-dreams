@@ -6,6 +6,12 @@ stylegan2_tf/
 .ipynb_checkpoints/
 clmr_magnatagatune_mlp/
 clmr/
+Real-ESRGAN/
+__pycache__/
+stylegan3/
+taming-transformers/
+taming/
+tmp/
 
 models/*
 songs/*
