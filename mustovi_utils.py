@@ -2,17 +2,25 @@ import musicnn
 from musicnn.extractor import extractor
 from musicnn.tagger import top_tags
 import pandas as pd
-
+import numpy as np
+import librosa
+import torch
 #remove deprecation warnings
 #import tensorflow as tf
 #tf.logging.set_verbosity(tf.logging.ERROR)
 import tensorflow.python.util.deprecation as deprecation
 deprecation._PRINT_DEPRECATION_WARNINGS = False
 
+
 def get_taggram(resampled_path, input_overlap, input_length):
     #MTT_musicnn', 'MTT_vgg', 'MSD_musicnn', 'MSD_musicnn_big' or 'MSD_vgg'.
-    taggram_msd, tags_msd = extractor(resampled_path, model='MSD_musicnn_big', extract_features=False, 
-                                      input_overlap=input_overlap, input_length=input_length)
+    try:
+        taggram_msd, tags_msd = extractor(resampled_path, model='MSD_musicnn_big', extract_features=False, 
+                                          input_overlap=input_overlap, input_length=input_length)
+    except ValueError:
+        print("Please install musicnn from source to use MSD_musicnn_big. Defaulting to small model...")
+        taggram_msd, tags_msd = extractor(resampled_path, model='MSD_musicnn', extract_features=False, 
+                                          input_overlap=input_overlap, input_length=input_length)
     taggram_mtt, tags_mtt = extractor(resampled_path, model='MTT_musicnn', extract_features=False, 
                                       input_overlap=input_overlap, input_length=input_length)
     # clear cuda
@@ -56,10 +64,6 @@ def get_taggram(resampled_path, input_overlap, input_length):
     return normed_tag_df
 
 
-
-import numpy as np
-import librosa
-
 def get_spec_norm(song):
     mel_spec = librosa.feature.melspectrogram(song, sr=16000, S=None, 
                                               n_fft=512, hop_length=256, 
@@ -74,3 +78,14 @@ def get_spec_norm(song):
     #mel_spec = (mel_spec - mel_spec.min()) / (mel_spec.max() - mel_spec.min())
     #sns.heatmap(mel_spec[:20, :])
     return mel_spec.mean(axis=0)
+
+
+def slerp(low, high, val):
+    low_norm = low / torch.norm(low, dim=1, keepdim=True)
+    high_norm = high / torch.norm(high, dim=1, keepdim=True)
+    epsilon = 1e-7
+    omega = (low_norm * high_norm).sum(1)
+    omega = torch.acos(torch.clamp(omega, -1 + epsilon, 1 - epsilon))
+    so = torch.sin(omega)
+    res = (torch.sin((1.0 - val) * omega) / so).unsqueeze(1) * low + (torch.sin(val * omega) / so).unsqueeze(1) * high
+    return res
