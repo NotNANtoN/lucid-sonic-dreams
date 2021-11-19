@@ -25,3 +25,12 @@ pytorch-lightning
 soundfile
 sklearn
 matplotlib
+# for mustovi
+hdbscan
+transformers
+musicnn
+lpips
+decorator==4.4.2
+moviepy
+# upscaling
+basicsr
