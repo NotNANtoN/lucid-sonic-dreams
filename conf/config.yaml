@@ -1,0 +1,75 @@
+# set song
+song_name: ??? #"songs/upbeat_hiphop_ashamaluevmusic.mp3"
+
+
+gpu: 0
+# song params
+offset: 0
+duration:
+use_lyrics: True
+text_file: # "texts/aric.txt"
+    
+# general params
+fps: 30
+boost_fps: 60
+# helper
+prefix_sg3_pkl: "https://api.ngc.nvidia.com/v2/models/nvidia/research/stylegan3/versions/1/files/"
+# generative network settings
+net: "vqgan" # conv, vqgan, stylegan, image, dip
+style: # prefix_sg3_pkl + "stylegan3-t-ffhq-1024x1024.pkl"
+#"stylegan3-t-metfaces-1024x1024.pkl"
+
+# substep params
+sub_steps: 12  # constant substeps if variable substeps are not used
+use_variable_substeps: True
+min_substeps: 10
+max_substeps: 50
+# musicnn params
+input_overlap: 0.0333333333333333333333333
+input_length: 3
+# post processing params
+upscale: True
+twice_upscale: False
+# video params
+total_effect_strength: 0.1
+ema_val: 0.2 # 0.99 is too strong
+ema_val_latent: 0.3
+
+# raw image params
+hq: False
+
+lpips_weight: 3.0  # 1.5 is good for 300 sub_steps but more could work too.
+# prompts
+base_img_path: "../CLIP_playground/base_images/"
+# settings for prompts
+k: 5
+prompt_mode: "weighted_top_k" # top_k, weighted_top_k, gpt
+use_mean_dirs: False
+# how much to weigh the current story vs the predicted "feelings" - 
+# for use_mean_dirs it should be between 0.1-0.4, otherwise the story disappears
+mood_weight: 1.0
+# prompt fine-tuning
+prefix: ""  # prefix for ALL prompts. like "A psychedelic painting of..."
+taggram_mode: "feelings" # full, feelings
+general_theme: " It looks epic, magnificent and beautiful." #". In the style of James Gurney."
+
+# clustering
+create_gpt_artstyle: False
+num_themes: 10 # num GPT themes to sample
+create_clusters: True
+gpt_cluster_prefix: ""  # prefix for clusters that will be extended by GPT
+do_create_gpt_cluster_stories: False
+use_k_means: False
+min_clusters: 4
+max_clusters: 13
+cluster_time_weight: 0.1  # how much weight to give to the time component while clustering in proportion to the maximum feature
+ema_val_clustering: 0.9 # 0.96
+
+gpt_story_top_k: 2  # number of k top cluster stories that will be consideren in CLIP guidance
+img_theme: # base_img_path + "hot-dog.jpg"
+# base_img_path + "Autumn_1875_Frederic_Edwin_Church.jpg"
+#". By Pete Mohrbacher."
+#". In the style of 'The Persistence of Memory' by Dali." #" by madziowa_p." #" by Jan Brueghel the Elder."  #" by Salvador Dali." #" by Greg Rutkowski."
+
+
+

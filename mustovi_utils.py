@@ -96,8 +96,9 @@ def slerp(low, high, val):
 
 
 def load_gpt_model(name):
-    from transformers import GPTNeoForCausalLM, GPT2Tokenizer
-    device = torch.device("cuda")
+    import transformers
+    from transformers import GPTNeoForCausalLM, GPT2Tokenizer, GPT2LMHeadModel
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
     if name == "neo1.3":
         gpt_tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B")
         gpt_model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B", pad_token_id=gpt_tokenizer.eos_token_id)
@@ -105,9 +106,20 @@ def load_gpt_model(name):
         gpt_tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-2.7B")
         gpt_model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-2.7B", pad_token_id=gpt_tokenizer.eos_token_id)
     elif name == "gpt2":
-        from transformers import GPT2LMHeadModel
         gpt_tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
         gpt_model = GPT2LMHeadModel.from_pretrained('gpt2', pad_token_id=gpt_tokenizer.eos_token_id)
+    elif name == "gptj":
+        # monkey-patch GPT-J for low precision storage
+        from gpt_j_low_prec import GPTJBlock, GPTJForCausalLM
+        transformers.models.gptj.modeling_gptj.GPTJBlock = GPTJBlock
+        
+        #from transformers import GPTJForCausalLM
+        
+        # load 
+        config = transformers.GPTJConfig.from_pretrained("EleutherAI/gpt-j-6B")
+        gpt_tokenizer = transformers.AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
+        gpt_model = GPTJForCausalLM.from_pretrained("hivemind/gpt-j-6B-8bit", low_cpu_mem_usage=True)
+
     gpt_model = gpt_model.to(device)
     return gpt_model, gpt_tokenizer
 
@@ -161,18 +173,21 @@ def gen_sent(gpt_model, gpt_tokenizer, clip_model, target_clip_feats,
     
     df = pd.DataFrame(data_dict)
     
+    df = add_example_based_metrics(df, clip_model, target_clip_feats, examples=examples)
     
-    best_sentence = select_best_beam(df, clip_model, target_clip_feats, examples=examples, return_num=return_num)
+    best_sentence = select_best_beam(df, return_num=return_num)
     
-    return best_sentence
+    if v > 0:
+        return best_sentence, df
+    else:
+        return best_sentence
 
 
 def norm(a):
     return a / a.norm(dim=-1, keepdim=True)
 
 
-def select_best_beam(df, clip_model, target_clip_feats, examples=None, return_num=1,
-                     target_sim_thresh=0.93, example_sim_thresh=0.89, dir_sim_thresh=0.3):
+def add_example_based_metrics(df, clip_model, target_clip_feats, examples=None):
     # filter out sentences that just imitate the target text
     out_encodings = clip_model.encode_text(tokenize(list(df["sent"])).to("cuda"))
     similarity_score = torch.cosine_similarity(target_clip_feats, out_encodings)
@@ -193,11 +208,17 @@ def select_best_beam(df, clip_model, target_clip_feats, examples=None, return_nu
         generated_dirs = norm(norm(out_encodings) - norm(target_clip_feats))
         dir_sims = torch.cosine_similarity(generated_dirs, mean_dir).cpu().tolist()
         df["direction_similarity"] = dir_sims
+    return df
 
+def select_best_beam(df, return_num=1,
+                     target_sim_thresh=0.93, example_sim_thresh=0.89, dir_sim_thresh=0.25):
+    
     # apply filters as long as they do not delete all prompts
     df = df[df["target_similarity"] < target_sim_thresh] if len(df[df["target_similarity"] < target_sim_thresh]) > 0 else df
-    if examples is not None:
+    if "example_similarity" in df.columns:
         df = df[df["example_similarity"] < example_sim_thresh] if len(df[df["example_similarity"] < example_sim_thresh]) > 0 else df
+    if "direction_similarity" in df.columns:
+        df = df[df["direction_similarity"] > dir_sim_thresh] if len(df[df["direction_similarity"] > dir_sim_thresh * (2 / 3)]) > 0 else df
         df = df[df["direction_similarity"] > dir_sim_thresh] if len(df[df["direction_similarity"] > dir_sim_thresh]) > 0 else df
 
     best_sentence = df.sort_values("post_score", ascending=False).iloc[:return_num]["sent"].to_list()
@@ -265,7 +286,7 @@ def sample_GPT_with_CLIP(model, tokenizer, clip_model, target_clip_feats,
         top_generations = [generated[len(context_tokens):] + [token.item()] for token in top_tokens]
         top_sentences = [tokenizer.decode(gen) for gen in top_generations]
 
-        if v > 1:
+        if v > 2:
             print("Num sentences: ", len(top_sentences))
             print("Some top sentences: ", top_sentences[:10])
         
@@ -289,11 +310,11 @@ def sample_GPT_with_CLIP(model, tokenizer, clip_model, target_clip_feats,
 
         # choose best fitting token
         #token = top_tokens[torch.argmax(clip_similarities)]  # greedy
-        if v > 1:
+        if v > 2:
             print("First 10 gpt logits. ", np.round(gpt_top_logits[:10].cpu().numpy(), 2))
             print("First 10 clip logits. ", np.round(clip_similarities_softmax[:10].cpu().numpy(), 2))
         weights = gpt_top_logits * (1 - clip_weight) + clip_similarities_softmax * clip_weight
-        if v > 1:
+        if v > 2:
             print("First 10 weights. ", weights[:10])
         idx = torch.multinomial(weights, num_samples=1)
         token = top_tokens[idx][0]
@@ -307,7 +328,7 @@ def sample_GPT_with_CLIP(model, tokenizer, clip_model, target_clip_feats,
         context = token.unsqueeze(0)
         
         token_decoded = tokenizer.decode(token.tolist())
-        if v > 0:
+        if v > 1:
             print(token_decoded)
             
         num_tokens += 1

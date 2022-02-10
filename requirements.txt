@@ -34,5 +34,8 @@ musicnn
 lpips
 decorator==4.4.2
 moviepy
+# gpt J usage
+transformers==4.14.1
+bitsandbytes-cuda111==0.26.0
 # upscaling
 basicsr
