@@ -1,5 +1,5 @@
 # set song
-song_name: ??? #"songs/upbeat_hiphop_ashamaluevmusic.mp3"
+song_name: #"songs/upbeat_hiphop_ashamaluevmusic.mp3"
 
 
 gpu: 0

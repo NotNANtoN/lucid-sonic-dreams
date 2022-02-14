@@ -1,4 +1,5 @@
-# folders
+# cloned folders
+deep-image-prior/
 lucidsonicdreams/__pycache__/
 stylegan2/
 stylegan2_tf/
@@ -13,6 +14,9 @@ taming-transformers/
 taming/
 tmp/
 
+
+# our folders
+texts/
 models/
 songs/
 songs_with_lyrics/
@@ -23,6 +27,8 @@ dream_venv/
 lucidsonicdreams.egg-info/*
 
 # files
+tmp.wav
+temp_script.py
 *.mp3
 *.mp4
 *.pkl
