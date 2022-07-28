@@ -7,6 +7,7 @@ gpu: 0
 offset: 0
 duration:
 use_lyrics: True
+lyrics_weight: 0.8
 text_file: # "texts/aric.txt"
     
 # general params
@@ -31,14 +32,15 @@ input_length: 3
 upscale: True
 twice_upscale: False
 # video params
-total_effect_strength: 0.1
+total_effect_strength: 0.2
 ema_val: 0.2 # 0.99 is too strong
 ema_val_latent: 0.3
 
 # raw image params
 hq: False
 
-lpips_weight: 3.0  # 1.5 is good for 300 sub_steps but more could work too.
+lpips_weight: 0.1  # old with losscoef 30:1.5 is good for 300 sub_steps but more could work too.
+lpips_net: "squeeze"
 # prompts
 base_img_path: "../CLIP_playground/base_images/"
 # settings for prompts
@@ -51,7 +53,7 @@ mood_weight: 1.0
 # prompt fine-tuning
 prefix: ""  # prefix for ALL prompts. like "A psychedelic painting of..."
 taggram_mode: "feelings" # full, feelings
-general_theme: " It looks epic, magnificent and beautiful." #". In the style of James Gurney."
+general_theme: "" #" It looks epic, magnificent and beautiful." #". In the style of James Gurney."
 
 # clustering
 create_gpt_artstyle: False
@@ -72,4 +74,6 @@ img_theme: # base_img_path + "hot-dog.jpg"
 #". In the style of 'The Persistence of Memory' by Dali." #" by madziowa_p." #" by Jan Brueghel the Elder."  #" by Salvador Dali." #" by Greg Rutkowski."
 
 
-
+use_depth: True
+depth_strength: 0.04
+depth_zoom_factor: 1.5
